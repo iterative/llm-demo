@@ -1,0 +1,5 @@
+outs:
+- md5: 6774177edc1343aff667136e5d254327
+  size: 264741
+  hash: md5
+  path: faiss_store.pkl
