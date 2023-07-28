@@ -6,3 +6,11 @@ stages:
     - expand_data.sh
     outs:
     - Notion_DB
+  ingest:
+    cmd: python ingest.py
+    deps:
+    - Notion_DB
+    - ingest.py
+    outs:
+    - docs.index
+    - faiss_store.pkl
