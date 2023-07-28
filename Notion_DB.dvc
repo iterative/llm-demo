@@ -1,0 +1,6 @@
+outs:
+- md5: bc438bfdc043d308cc23e74c85d04c13.dir
+  size: 27426023
+  nfiles: 96
+  hash: md5
+  path: Notion_DB
