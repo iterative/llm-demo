@@ -12,5 +12,14 @@ stages:
     - Notion_DB
     - ingest.py
     outs:
+    - docs.json
+    - metadatas.json
+  vectorize:
+    cmd: python vector_store.py
+    deps:
+    - docs.json
+    - metadatas.json
+    - vector_store.py
+    outs:
     - docs.index
     - faiss_store.pkl
