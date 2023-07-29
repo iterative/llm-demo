@@ -17,3 +17,24 @@ stages:
       md5: 77e3da1ad7dbfdcdb22d049300fcb321.dir
       size: 27444961
       nfiles: 98
+  ingest:
+    cmd: python ingest.py
+    deps:
+    - path: Notion_DB
+      hash: md5
+      md5: 77e3da1ad7dbfdcdb22d049300fcb321.dir
+      size: 27444961
+      nfiles: 98
+    - path: ingest.py
+      hash: md5
+      md5: c6d2ee27b76d573bee0ae7a9daa071a9
+      size: 887
+    outs:
+    - path: docs.json
+      hash: md5
+      md5: bd199a2e3aa95dc5cc2534581f0f2ba6
+      size: 251285
+    - path: metadatas.json
+      hash: md5
+      md5: 337d90985bc3fccca57097b12f43e770
+      size: 33434
