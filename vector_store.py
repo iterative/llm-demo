@@ -5,10 +5,10 @@ import pickle
 import json
 
 
-with open("docs.json", "w") as f:
+with open("docs.json", "r") as f:
     docs = json.load(f)
 
-with open("metadatas.json", "w") as f:
+with open("metadatas.json", "r") as f:
     metadatas = json.load(f)
 
 # Here we create a vector store from the documents and save it to disk.
