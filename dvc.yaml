@@ -23,3 +23,12 @@ stages:
     outs:
     - docs.index
     - faiss_store.pkl
+  run:
+    cmd: python qa.py
+    deps:
+    - docs.index
+    - faiss_store.pkl
+    - samples.txt
+    - qa.py
+    outs:
+    - results.csv
