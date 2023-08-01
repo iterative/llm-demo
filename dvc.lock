@@ -62,3 +62,27 @@ stages:
       hash: md5
       md5: 0ca119b01ba1b557364bfbde00474b97
       size: 299533
+  run:
+    cmd: python qa.py
+    deps:
+    - path: docs.index
+      hash: md5
+      md5: b291c6d1fec6b8f3b2873cd4fe8531e1
+      size: 1210413
+    - path: faiss_store.pkl
+      hash: md5
+      md5: 0ca119b01ba1b557364bfbde00474b97
+      size: 299533
+    - path: qa.py
+      hash: md5
+      md5: ce48a66c6b3970960aadec24369d0797
+      size: 992
+    - path: samples.txt
+      hash: md5
+      md5: 941115ecc22c947f1a1dfe19d3f30eed
+      size: 229
+    outs:
+    - path: results.csv
+      hash: md5
+      md5: 7b443364d6c2d3d1513d5caaa93420a8
+      size: 2910
