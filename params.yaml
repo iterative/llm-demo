@@ -1,0 +1,19 @@
+TextSplitter:
+  chunk_size: 1500
+  chunk_overlap: 200
+  keep_separator: False
+  add_start_index: False
+OpenAIEmbeddings:
+  chunk_size: 1000
+  embedding_ctx_length: 8191
+  max_retries: 6
+  model: text-embedding-ada-002
+ChatOpenAI:
+  max_retries: 6
+  model_name: gpt-3.5-turbo
+  temperature: 0.0
+  verbose: True
+Retrieval:
+  max_tokens_limit: 3375
+  reduce_k_below_max_tokens: False
+  verbose: True

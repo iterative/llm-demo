@@ -27,13 +27,20 @@ stages:
       nfiles: 98
     - path: ingest.py
       hash: md5
-      md5: c6d2ee27b76d573bee0ae7a9daa071a9
-      size: 887
+      md5: c23ee88d05c671f67cc6744b9bcdd704
+      size: 1255
+    params:
+      params.yaml:
+        TextSplitter:
+          chunk_size: 1500
+          chunk_overlap: 200
+          keep_separator: false
+          add_start_index: false
     outs:
     - path: docs.json
       hash: md5
-      md5: bd199a2e3aa95dc5cc2534581f0f2ba6
-      size: 251285
+      md5: 3082174a1ef5c6b2d2733c7950aa7bf8
+      size: 249826
     - path: metadatas.json
       hash: md5
       md5: 337d90985bc3fccca57097b12f43e770
@@ -43,46 +50,64 @@ stages:
     deps:
     - path: docs.json
       hash: md5
-      md5: bd199a2e3aa95dc5cc2534581f0f2ba6
-      size: 251285
+      md5: 3082174a1ef5c6b2d2733c7950aa7bf8
+      size: 249826
     - path: metadatas.json
       hash: md5
       md5: 337d90985bc3fccca57097b12f43e770
       size: 33434
     - path: vector_store.py
       hash: md5
-      md5: 5218fa4a76299c62691439d75eccd2ae
-      size: 619
+      md5: 73df04619c4785d816ac11db2fef04b7
+      size: 912
+    params:
+      params.yaml:
+        OpenAIEmbeddings:
+          chunk_size: 1000
+          embedding_ctx_length: 8191
+          max_retries: 6
+          model: text-embedding-ada-002
     outs:
     - path: docs.index
       hash: md5
-      md5: b291c6d1fec6b8f3b2873cd4fe8531e1
+      md5: db44779c6213ed183152114b13422bb3
       size: 1210413
     - path: faiss_store.pkl
       hash: md5
-      md5: 0ca119b01ba1b557364bfbde00474b97
-      size: 299533
+      md5: 1d352e7dd19b25e2c5177a76b9c5a170
+      size: 298993
   run:
     cmd: python qa.py
     deps:
     - path: docs.index
       hash: md5
-      md5: b291c6d1fec6b8f3b2873cd4fe8531e1
+      md5: db44779c6213ed183152114b13422bb3
       size: 1210413
     - path: faiss_store.pkl
       hash: md5
-      md5: 0ca119b01ba1b557364bfbde00474b97
-      size: 299533
+      md5: 1d352e7dd19b25e2c5177a76b9c5a170
+      size: 298993
     - path: qa.py
       hash: md5
-      md5: ce48a66c6b3970960aadec24369d0797
-      size: 992
+      md5: b4d48ec551952f9387b60c8b5409c779
+      size: 1610
     - path: samples.txt
       hash: md5
       md5: 941115ecc22c947f1a1dfe19d3f30eed
       size: 229
+    params:
+      params.yaml:
+        ChatOpenAI:
+          max_retries: 6
+          model_name: gpt-3.5-turbo
+          temperature: 0.0
+          verbose: true
+        Retrieval:
+          max_tokens_limit: 3375
+          reduce_k_below_max_tokens: false
+          verbose: true
     outs:
     - path: results.csv
       hash: md5
-      md5: 7b443364d6c2d3d1513d5caaa93420a8
-      size: 2910
+      md5: e3a234ec7569ff00881c7fa8466645d9
+      size: 2992

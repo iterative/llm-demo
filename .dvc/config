@@ -1,4 +1,6 @@
 [core]
-    remote = local_mac_remote
+    remote = s3remote
 ['remote "local_mac_remote"']
     url = /tmp/dvcstore
+['remote "s3remote"']
+    url = s3://dvc-public/remote/llm-demo

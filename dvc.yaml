@@ -8,6 +8,8 @@ stages:
     - Notion_DB
   ingest:
     cmd: python ingest.py
+    params:
+    - TextSplitter
     deps:
     - Notion_DB
     - ingest.py
@@ -16,6 +18,8 @@ stages:
     - metadatas.json
   vectorize:
     cmd: python vector_store.py
+    params:
+    - OpenAIEmbeddings
     deps:
     - docs.json
     - metadatas.json
@@ -25,6 +29,9 @@ stages:
     - faiss_store.pkl
   run:
     cmd: python qa.py
+    params:
+    - ChatOpenAI
+    - Retrieval
     deps:
     - docs.index
     - faiss_store.pkl

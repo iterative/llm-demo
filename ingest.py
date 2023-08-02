@@ -2,7 +2,11 @@
 from pathlib import Path
 from langchain.text_splitter import CharacterTextSplitter
 import json
+import dvc.api
 
+
+params = dvc.api.params_show()['TextSplitter']
+print(params)
 
 # Here we load in the data in the format that Notion exports it in.
 ps = list(Path("Notion_DB/").glob("**/*.md"))
@@ -16,7 +20,11 @@ for p in ps:
 
 # Here we split the documents, as needed, into smaller chunks.
 # We do this due to the context limits of the LLMs.
-text_splitter = CharacterTextSplitter(chunk_size=1500, separator="\n")
+text_splitter = CharacterTextSplitter(chunk_size=params['chunk_size'],
+                                      chunk_overlap=params['chunk_overlap'],
+                                      keep_separator=params['keep_separator'],
+                                      add_start_index=params['add_start_index'],
+                                      separator="\n")
 docs = []
 metadatas = []
 for i, d in enumerate(data):
