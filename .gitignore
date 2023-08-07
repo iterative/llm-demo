@@ -129,7 +129,7 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-/Notion_DB
+/data
 /docs.json
 /metadatas.json
 /docs.index

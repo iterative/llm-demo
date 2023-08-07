@@ -9,7 +9,7 @@ params = dvc.api.params_show()['TextSplitter']
 print(params)
 
 # Here we load in the data in the format that Notion exports it in.
-ps = list(Path("Notion_DB/").glob("**/*.md"))
+ps = list(Path("data/").glob("**/*.md"))
 
 data = []
 sources = []
