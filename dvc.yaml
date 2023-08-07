@@ -2,7 +2,7 @@ stages:
   expand:
     cmd: bash expand_data.sh
     deps:
-    - Export-d3adfe0f-3131-4bf3-8987-a52017fc1bae.zip
+    - docs_dump.zip
     - expand_data.sh
     outs:
     - Notion_DB
