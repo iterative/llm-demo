@@ -9,8 +9,8 @@ stages:
       size: 470834
     - path: expand_data.sh
       hash: md5
-      md5: b032a7e69b749b5f58101e7c3cc5c5bb
-      size: 57
+      md5: 3a1a357923e58ad0a60537f2df77e1b4
+      size: 123
     outs:
     - path: data
       hash: md5
@@ -111,3 +111,10 @@ stages:
       hash: md5
       md5: f46c0148a4fc9a85013b9ee85819f3b8
       size: 4993
+  setup:
+    cmd: bash setup.sh
+    deps:
+    - path: requirements.txt
+      hash: md5
+      md5: 1150e3462220fccb8831f993687f2f6c
+      size: 2271
