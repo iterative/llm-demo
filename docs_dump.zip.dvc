@@ -1,5 +1,5 @@
 outs:
-- md5: a244a59409b0e27ea8196d7201ddd0f5
-  size: 23674456
+- md5: 2dfe0f1dbd30ef26e75cbaa56e6e9fec
+  size: 470834
   hash: md5
   path: docs_dump.zip
