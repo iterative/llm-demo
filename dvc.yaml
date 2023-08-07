@@ -1,4 +1,8 @@
 stages:
+  setup:
+    cmd: bash setup.sh
+    deps:
+    - requirements.txt
   expand:
     cmd: bash expand_data.sh
     deps:
