@@ -9,26 +9,26 @@ stages:
       size: 470834
     - path: expand_data.sh
       hash: md5
-      md5: 3a1a357923e58ad0a60537f2df77e1b4
-      size: 123
+      md5: 6aca8ab03e2fa106e81b21d04ba2adb7
+      size: 229
     outs:
     - path: data
       hash: md5
-      md5: 02f0ab84c9c69a0277cc4509ae040c4a.dir
-      size: 1093454
-      nfiles: 241
+      md5: d3406c3230f9614c651b531a33a6a869.dir
+      size: 20724476
+      nfiles: 262
   ingest:
     cmd: python ingest.py
     deps:
     - path: data
       hash: md5
-      md5: 02f0ab84c9c69a0277cc4509ae040c4a.dir
-      size: 1093454
-      nfiles: 241
+      md5: d3406c3230f9614c651b531a33a6a869.dir
+      size: 20724476
+      nfiles: 262
     - path: ingest.py
       hash: md5
-      md5: 708398f2c31d37c7052a384a7923d96f
-      size: 1250
+      md5: 7d3ddefb4e31fff626091074cc8594c2
+      size: 1964
     params:
       params.yaml:
         TextSplitter:
@@ -39,23 +39,23 @@ stages:
     outs:
     - path: docs.json
       hash: md5
-      md5: fde59b090e0373aaafe406ddabea697a
-      size: 1229954
+      md5: 3a92c96a1254fb4acda25be22518cfda
+      size: 16845878
     - path: metadatas.json
       hash: md5
-      md5: e2c43695a1a41b0c4506ed2b9f99fe53
-      size: 62017
+      md5: 4d0302d7d57e1fd23a505c7d66ac8848
+      size: 513304
   vectorize:
     cmd: python vector_store.py
     deps:
     - path: docs.json
       hash: md5
-      md5: fde59b090e0373aaafe406ddabea697a
-      size: 1229954
+      md5: 3a92c96a1254fb4acda25be22518cfda
+      size: 16845878
     - path: metadatas.json
       hash: md5
-      md5: e2c43695a1a41b0c4506ed2b9f99fe53
-      size: 62017
+      md5: 4d0302d7d57e1fd23a505c7d66ac8848
+      size: 513304
     - path: vector_store.py
       hash: md5
       md5: 73df04619c4785d816ac11db2fef04b7
@@ -70,23 +70,23 @@ stages:
     outs:
     - path: docs.index
       hash: md5
-      md5: 38f969a3d7014a21553ef21f769b34a4
-      size: 5425197
+      md5: 482cbdafbf26637c9360c4ec5db6f73e
+      size: 71872557
     - path: faiss_store.pkl
       hash: md5
-      md5: 23bd969ea3e86552a8762cd95c485099
-      size: 1315415
+      md5: d3320b968d25e7f6027e3aba3cbb5cff
+      size: 18087486
   run:
     cmd: python qa.py
     deps:
     - path: docs.index
       hash: md5
-      md5: 38f969a3d7014a21553ef21f769b34a4
-      size: 5425197
+      md5: 482cbdafbf26637c9360c4ec5db6f73e
+      size: 71872557
     - path: faiss_store.pkl
       hash: md5
-      md5: 23bd969ea3e86552a8762cd95c485099
-      size: 1315415
+      md5: d3320b968d25e7f6027e3aba3cbb5cff
+      size: 18087486
     - path: qa.py
       hash: md5
       md5: b4d48ec551952f9387b60c8b5409c779
@@ -109,8 +109,8 @@ stages:
     outs:
     - path: results.csv
       hash: md5
-      md5: f46c0148a4fc9a85013b9ee85819f3b8
-      size: 4993
+      md5: e73c14de2e7c52cda540979ff865180c
+      size: 4964
   setup:
     cmd: bash setup.sh
     deps:
