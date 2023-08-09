@@ -27,8 +27,8 @@ stages:
       nfiles: 262
     - path: ingest.py
       hash: md5
-      md5: 7d3ddefb4e31fff626091074cc8594c2
-      size: 1964
+      md5: 2754e0a87b50f8ab5a6f0be62e72ef17
+      size: 2658
     params:
       params.yaml:
         TextSplitter:
@@ -39,23 +39,23 @@ stages:
     outs:
     - path: docs.json
       hash: md5
-      md5: 3a92c96a1254fb4acda25be22518cfda
-      size: 16845878
+      md5: 67dd1567ca1a7a013049efd1846f1793
+      size: 18785735
     - path: metadatas.json
       hash: md5
-      md5: 4d0302d7d57e1fd23a505c7d66ac8848
-      size: 513304
+      md5: a73a073dae898dfca86e1cb745c27262
+      size: 1114662
   vectorize:
     cmd: python vector_store.py
     deps:
     - path: docs.json
       hash: md5
-      md5: 3a92c96a1254fb4acda25be22518cfda
-      size: 16845878
+      md5: 67dd1567ca1a7a013049efd1846f1793
+      size: 18785735
     - path: metadatas.json
       hash: md5
-      md5: 4d0302d7d57e1fd23a505c7d66ac8848
-      size: 513304
+      md5: a73a073dae898dfca86e1cb745c27262
+      size: 1114662
     - path: vector_store.py
       hash: md5
       md5: 73df04619c4785d816ac11db2fef04b7
@@ -70,23 +70,23 @@ stages:
     outs:
     - path: docs.index
       hash: md5
-      md5: 482cbdafbf26637c9360c4ec5db6f73e
-      size: 71872557
+      md5: 834b377f2529505fbf0b115e911c295d
+      size: 81365037
     - path: faiss_store.pkl
       hash: md5
-      md5: d3320b968d25e7f6027e3aba3cbb5cff
-      size: 18087486
+      md5: 60a6ecc903c688f5f28ae4d9763b0fe4
+      size: 20779261
   run:
     cmd: python qa.py
     deps:
     - path: docs.index
       hash: md5
-      md5: 482cbdafbf26637c9360c4ec5db6f73e
-      size: 71872557
+      md5: 834b377f2529505fbf0b115e911c295d
+      size: 81365037
     - path: faiss_store.pkl
       hash: md5
-      md5: d3320b968d25e7f6027e3aba3cbb5cff
-      size: 18087486
+      md5: 60a6ecc903c688f5f28ae4d9763b0fe4
+      size: 20779261
     - path: qa.py
       hash: md5
       md5: b4d48ec551952f9387b60c8b5409c779
@@ -109,8 +109,8 @@ stages:
     outs:
     - path: results.csv
       hash: md5
-      md5: e73c14de2e7c52cda540979ff865180c
-      size: 4964
+      md5: 11e7dceae3fb29fdf01a68c4bc328d00
+      size: 5106
   setup:
     cmd: bash setup.sh
     deps:
