@@ -4,7 +4,12 @@ from langchain.text_splitter import CharacterTextSplitter
 import json
 import dvc.api
 import pandas as pd
+from parse import search
 
+
+JOIN_TOKEN = "\n\n"
+METADATA_TOKEN = "\t"
+DATE_CHARS = 19
 
 params = dvc.api.params_show()['TextSplitter']
 print(params)
@@ -27,8 +32,11 @@ for p in ps:
     del df['AuthorID']
     del df['Attachments']
     df[df.isnull()] = ""
+    assert not df['Author'].str.contains(METADATA_TOKEN).any()
+    assert not df['Date'].str.contains(METADATA_TOKEN).any()
+    assert not df['Content'].str.contains(METADATA_TOKEN).any()
     # We could try eliminating instances of \n\n from content as well
-    df['formatted'] = df.apply(lambda row: f"@{row['Author']}: {row['Content']}", axis=1)
+    df['formatted'] = df.apply(lambda row: f"@{row['Author']} [{METADATA_TOKEN}{row['Date'][:DATE_CHARS]}{METADATA_TOKEN}]: {row['Content']}", axis=1)
     joined_doc = '\n\n'.join(df['formatted'].tolist())
     data.append(joined_doc)
 
@@ -43,12 +51,23 @@ text_splitter = CharacterTextSplitter(chunk_size=params['chunk_size'],
                                       keep_separator=params['keep_separator'],
                                       add_start_index=params['add_start_index'],
                                       separator="\n")
+
 docs = []
 metadatas = []
 for i, d in enumerate(data):
     splits = text_splitter.split_text(d)
-    docs.extend(splits)
-    metadatas.extend([{"source": sources[i]}] * len(splits))
+    for j, ss in enumerate(splits):
+        parsed_meta = search(f"@{{}} [{METADATA_TOKEN}{{}}{METADATA_TOKEN}]: ", ss)
+
+        if parsed_meta is None:
+            source = f"{sources[i]} {int(100 * (j / len(splits)))}%"
+        else:
+            author, date = parsed_meta
+            source = f"{sources[i]} @{author} [{date}]"
+
+        ss = ss.replace(METADATA_TOKEN, "")
+        docs.append(ss)
+        metadatas.append({"source": source})
 
 with open("docs.json", "w") as f:
     json.dump(docs, f)
