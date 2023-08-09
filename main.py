@@ -1,4 +1,5 @@
 """Python file to serve as the frontend"""
+import json
 import streamlit as st
 from streamlit_chat import message
 import faiss
@@ -46,6 +47,13 @@ user_input = get_text()
 if user_input:
     result = chain({"question": user_input})
     output = f"Answer: {result['answer']}\nSources: {result['sources']}"
+
+    log_data = {'user_input': user_input, 'answer': result['answer'], 'sources': result['sources']}
+    log_str = json.dumps(log_data)
+    assert len(log_str.splitlines()) == 1
+    with open('chat.log', 'a') as f:
+        f.write(log_str)
+        f.write('\n')
 
     st.session_state.past.append(user_input)
     st.session_state.generated.append(output)
