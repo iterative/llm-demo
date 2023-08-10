@@ -8,6 +8,8 @@ from langchain.chains import RetrievalQAWithSourcesChain
 import pickle
 import dvc.api
 
+import langchain
+langchain.debug = True
 
 params = dvc.api.params_show()
 chat_params = params['ChatOpenAI']
