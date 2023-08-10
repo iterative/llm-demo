@@ -27,8 +27,8 @@ stages:
       nfiles: 262
     - path: ingest.py
       hash: md5
-      md5: 2754e0a87b50f8ab5a6f0be62e72ef17
-      size: 2658
+      md5: 58003d8f97a268e3c622897f18d8fc6b
+      size: 4691
     params:
       params.yaml:
         TextSplitter:
@@ -39,23 +39,23 @@ stages:
     outs:
     - path: docs.json
       hash: md5
-      md5: 67dd1567ca1a7a013049efd1846f1793
-      size: 18785735
+      md5: f8778bd147329933c01eabe8b3253492
+      size: 73471050
     - path: metadatas.json
       hash: md5
-      md5: a73a073dae898dfca86e1cb745c27262
-      size: 1114662
+      md5: abcec91e4955e3519298bb815ce0dc7a
+      size: 3975161
   vectorize:
     cmd: python vector_store.py
     deps:
     - path: docs.json
       hash: md5
-      md5: 67dd1567ca1a7a013049efd1846f1793
-      size: 18785735
+      md5: f8778bd147329933c01eabe8b3253492
+      size: 73471050
     - path: metadatas.json
       hash: md5
-      md5: a73a073dae898dfca86e1cb745c27262
-      size: 1114662
+      md5: abcec91e4955e3519298bb815ce0dc7a
+      size: 3975161
     - path: vector_store.py
       hash: md5
       md5: 73df04619c4785d816ac11db2fef04b7
@@ -70,23 +70,23 @@ stages:
     outs:
     - path: docs.index
       hash: md5
-      md5: 834b377f2529505fbf0b115e911c295d
-      size: 81365037
+      md5: 7e80c58b44cfca1da3723d8eaf1acf3a
+      size: 323002413
     - path: faiss_store.pkl
       hash: md5
-      md5: 60a6ecc903c688f5f28ae4d9763b0fe4
-      size: 20779261
+      md5: 4d55dd6c1ca04114aadc71cbeff18845
+      size: 80319348
   run:
     cmd: python qa.py
     deps:
     - path: docs.index
       hash: md5
-      md5: 834b377f2529505fbf0b115e911c295d
-      size: 81365037
+      md5: 7e80c58b44cfca1da3723d8eaf1acf3a
+      size: 323002413
     - path: faiss_store.pkl
       hash: md5
-      md5: 60a6ecc903c688f5f28ae4d9763b0fe4
-      size: 20779261
+      md5: 4d55dd6c1ca04114aadc71cbeff18845
+      size: 80319348
     - path: qa.py
       hash: md5
       md5: b4d48ec551952f9387b60c8b5409c779
@@ -109,8 +109,8 @@ stages:
     outs:
     - path: results.csv
       hash: md5
-      md5: 11e7dceae3fb29fdf01a68c4bc328d00
-      size: 5106
+      md5: 1b2098dc756d41b1552c0e59fb0d1de1
+      size: 6483
   setup:
     cmd: bash setup.sh
     deps:
