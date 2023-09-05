@@ -3,32 +3,32 @@ stages:
   expand:
     cmd: bash expand_data.sh
     deps:
-    - path: Export-d3adfe0f-3131-4bf3-8987-a52017fc1bae.zip
+    - path: docs_dump.zip
       hash: md5
-      md5: a244a59409b0e27ea8196d7201ddd0f5
-      size: 23674456
+      md5: 2dfe0f1dbd30ef26e75cbaa56e6e9fec
+      size: 470834
     - path: expand_data.sh
       hash: md5
-      md5: 1e8b49cb52abb0dcd4ad885b41211e38
-      size: 96
+      md5: 6aca8ab03e2fa106e81b21d04ba2adb7
+      size: 229
     outs:
-    - path: Notion_DB
+    - path: data
       hash: md5
-      md5: 77e3da1ad7dbfdcdb22d049300fcb321.dir
-      size: 27444961
-      nfiles: 98
+      md5: d3406c3230f9614c651b531a33a6a869.dir
+      size: 20724476
+      nfiles: 262
   ingest:
     cmd: python ingest.py
     deps:
-    - path: Notion_DB
+    - path: data
       hash: md5
-      md5: 77e3da1ad7dbfdcdb22d049300fcb321.dir
-      size: 27444961
-      nfiles: 98
+      md5: d3406c3230f9614c651b531a33a6a869.dir
+      size: 20724476
+      nfiles: 262
     - path: ingest.py
       hash: md5
-      md5: c23ee88d05c671f67cc6744b9bcdd704
-      size: 1255
+      md5: 58003d8f97a268e3c622897f18d8fc6b
+      size: 4691
     params:
       params.yaml:
         TextSplitter:
@@ -39,23 +39,23 @@ stages:
     outs:
     - path: docs.json
       hash: md5
-      md5: 3082174a1ef5c6b2d2733c7950aa7bf8
-      size: 249826
+      md5: f8778bd147329933c01eabe8b3253492
+      size: 73471050
     - path: metadatas.json
       hash: md5
-      md5: 337d90985bc3fccca57097b12f43e770
-      size: 33434
+      md5: abcec91e4955e3519298bb815ce0dc7a
+      size: 3975161
   vectorize:
     cmd: python vector_store.py
     deps:
     - path: docs.json
       hash: md5
-      md5: 3082174a1ef5c6b2d2733c7950aa7bf8
-      size: 249826
+      md5: f8778bd147329933c01eabe8b3253492
+      size: 73471050
     - path: metadatas.json
       hash: md5
-      md5: 337d90985bc3fccca57097b12f43e770
-      size: 33434
+      md5: abcec91e4955e3519298bb815ce0dc7a
+      size: 3975161
     - path: vector_store.py
       hash: md5
       md5: 73df04619c4785d816ac11db2fef04b7
@@ -70,31 +70,31 @@ stages:
     outs:
     - path: docs.index
       hash: md5
-      md5: db44779c6213ed183152114b13422bb3
-      size: 1210413
+      md5: 7e80c58b44cfca1da3723d8eaf1acf3a
+      size: 323002413
     - path: faiss_store.pkl
       hash: md5
-      md5: 1d352e7dd19b25e2c5177a76b9c5a170
-      size: 298993
+      md5: 4d55dd6c1ca04114aadc71cbeff18845
+      size: 80319348
   run:
     cmd: python qa.py
     deps:
     - path: docs.index
       hash: md5
-      md5: db44779c6213ed183152114b13422bb3
-      size: 1210413
+      md5: 7e80c58b44cfca1da3723d8eaf1acf3a
+      size: 323002413
     - path: faiss_store.pkl
       hash: md5
-      md5: 1d352e7dd19b25e2c5177a76b9c5a170
-      size: 298993
+      md5: 4d55dd6c1ca04114aadc71cbeff18845
+      size: 80319348
     - path: qa.py
       hash: md5
       md5: b4d48ec551952f9387b60c8b5409c779
       size: 1610
     - path: samples.txt
       hash: md5
-      md5: 941115ecc22c947f1a1dfe19d3f30eed
-      size: 229
+      md5: 2a7db14e656fea3316ef7f8de2ecac54
+      size: 1031
     params:
       params.yaml:
         ChatOpenAI:
@@ -109,5 +109,12 @@ stages:
     outs:
     - path: results.csv
       hash: md5
-      md5: e3a234ec7569ff00881c7fa8466645d9
-      size: 2992
+      md5: 1b2098dc756d41b1552c0e59fb0d1de1
+      size: 6483
+  setup:
+    cmd: bash setup.sh
+    deps:
+    - path: requirements.txt
+      hash: md5
+      md5: 1150e3462220fccb8831f993687f2f6c
+      size: 2271

@@ -1,17 +1,21 @@
 stages:
+  setup:
+    cmd: bash setup.sh
+    deps:
+    - requirements.txt
   expand:
     cmd: bash expand_data.sh
     deps:
-    - Export-d3adfe0f-3131-4bf3-8987-a52017fc1bae.zip
+    - docs_dump.zip
     - expand_data.sh
     outs:
-    - Notion_DB
+    - data
   ingest:
     cmd: python ingest.py
     params:
     - TextSplitter
     deps:
-    - Notion_DB
+    - data
     - ingest.py
     outs:
     - docs.json

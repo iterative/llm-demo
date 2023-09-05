@@ -1,0 +1,5 @@
+outs:
+- md5: ddbc186214e3fd4bf3659e85f6f0e060
+  size: 5819842
+  hash: md5
+  path: discord_dump.zip
