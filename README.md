@@ -4,7 +4,7 @@ This chat bot is built on top of LangChain and uses the DVC documentation and Di
 
 This is chatbot about DVC where the training pipeline was built using DVC.
 
-# 🌲 Environment Setup
+# Environment Setup
 
 First you need to do a git pull of the code:
 ```shell
@@ -12,7 +12,7 @@ git clone git@github.com:iterative/llm-demo.git
 cd llm-demo
 ```
 
-The training run is all logged in DVC on an S3 store. So, if you are already authenticated on AWS you can get all the data with:
+The training run is all logged in DVC on an S3 store. So, if you are already authenticated on AWS (check with `aws sts get-caller-identity`) you can get all the data with:
 ```shell
 dvc pull
 ```
