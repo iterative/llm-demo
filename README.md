@@ -26,8 +26,9 @@ pip install -r requirements.txt
 
 Then set your OpenAI API key (if you don't have one, get one [here](https://beta.openai.com/playground)):
 ```shell
-export OPENAI_API_KEY=....
+  export OPENAI_API_KEY=....
 ```
+The preceeding spaces prevent the API key from staying in your bash history if that is [configured](https://stackoverflow.com/questions/6475524/how-do-i-prevent-commands-from-showing-up-in-bash-history).
 
 # Running
 
