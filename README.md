@@ -4,6 +4,8 @@ This chat bot is built on top of LangChain and uses the DVC documentation and Di
 
 This is chatbot about DVC where the training pipeline was built using DVC.
 
+It was forked off from a generic [LangChain Demo](https://github.com/hwchase17/notion-qa).
+
 # Environment Setup
 
 First you need to do a git pull of the code:
