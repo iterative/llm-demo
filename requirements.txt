@@ -6,7 +6,7 @@ amqp==5.1.1
 antlr4-python3-runtime==4.9.3
 appdirs==1.4.4
 async-timeout==4.0.2
-asyncssh==2.13.2
+asyncssh==2.14.1
 atpublic==4.0
 attrs==23.1.0
 billiard==4.1.0
