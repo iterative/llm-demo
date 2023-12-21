@@ -30,7 +30,7 @@ diskcache==5.6.1
 distro==1.8.0
 dpath==2.1.6
 dulwich==0.21.5
-dvc==3.10.1
+dvc[gs]==3.10.1
 dvc-data==2.8.1
 dvc-http==2.30.2
 dvc-objects==0.24.1
