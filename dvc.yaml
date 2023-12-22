@@ -2,6 +2,7 @@ stages:
   setup:
     cmd: bash setup.sh
     deps:
+    - setup.sh
     - requirements.txt
   expand:
     cmd: bash expand_data.sh
@@ -39,7 +40,7 @@ stages:
     deps:
     - docs.index
     - faiss_store.pkl
-    - samples.txt
+    - canfy.csv
     - qa.py
     outs:
     - results.csv

@@ -2,6 +2,7 @@
 import faiss
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQAWithSourcesChain
+import os
 import pickle
 import pandas as pd
 import dvc.api
@@ -19,13 +20,13 @@ index = faiss.read_index("docs.index")
 with open("faiss_store.pkl", "rb") as f:
     store = pickle.load(f)
 
-with open("samples.txt", "r") as f:
-    sample_questions = f.readlines()
+df = pd.read_csv("canfy.csv")
+sample_questions = df["Q"].to_list()
 
 store.index = index
 llm = ChatOpenAI(temperature=chat_params['temperature'], model_name=chat_params['model_name'], max_retries=chat_params['max_retries'], verbose=chat_params['verbose'])
-chain = RetrievalQAWithSourcesChain.from_chain_type(llm=ChatOpenAI(temperature=0), retriever=store.as_retriever(),
-                                                    max_tokens_limit=qa_params['max_tokens_limit'],
+chain = RetrievalQAWithSourcesChain.from_chain_type(llm=llm,
+                                                    retriever=store.as_retriever(), max_tokens_limit=qa_params['max_tokens_limit'],
                                                     reduce_k_below_max_tokens=qa_params['reduce_k_below_max_tokens'],
                                                     verbose=qa_params['verbose'])
 
@@ -35,7 +36,7 @@ for question in sample_questions:
     print(f"Question: {question}")
 
     result = chain({"question": question})
-    records.append({"Q": question, "A": {result["answer"].strip()}, "sources": result['sources'].strip()})
+    records.append({"Q": question, "A": result["answer"].strip(), "sources": result['sources'].strip()})
 
     print(f"Answer: {result['answer']}")
     print(f"Sources: {result['sources']}")

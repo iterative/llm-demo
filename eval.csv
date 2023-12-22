@@ -1,0 +1,8 @@
+Q,grade
+is Hydra required dependency for DVC?,3
+"If I push an experiment using `dvc exp push`, will it also push all outs to the remote?",3
+I am looking for ways to run DVC commands in AWS lambda,2
+is it possible to have a `bar_horizontal` plot become interactive? I.e. when I hover a certain bar in the VSCode extension it shows the x and y labels for that bar?,3
+"what is the relationship between experiments and branches? I noticed ""detached head"" while running an experiment. Is this normal?",3
+"My pipeline depends on the external fasttext dependency, `lid.176.ftz`. This is a pretrained model. How should I manage this dependency properly with DVC?",2
+how can I give custom names to foreach do  pipeline stages?,2

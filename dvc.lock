@@ -79,6 +79,10 @@ stages:
   run:
     cmd: python qa.py
     deps:
+    - path: canfy.csv
+      hash: md5
+      md5: f4d4c1221515fe413e7cdf383c1ab2db
+      size: 6467
     - path: docs.index
       hash: md5
       md5: 7e80c58b44cfca1da3723d8eaf1acf3a
@@ -89,12 +93,8 @@ stages:
       size: 80319348
     - path: qa.py
       hash: md5
-      md5: b4d48ec551952f9387b60c8b5409c779
-      size: 1610
-    - path: samples.txt
-      hash: md5
-      md5: 2a7db14e656fea3316ef7f8de2ecac54
-      size: 1031
+      md5: 41b32609d253b1e8f2a2b556e21cc92b
+      size: 1590
     params:
       params.yaml:
         ChatOpenAI:
@@ -109,12 +109,16 @@ stages:
     outs:
     - path: results.csv
       hash: md5
-      md5: 1b2098dc756d41b1552c0e59fb0d1de1
-      size: 6483
+      md5: 70746233dc538f6c9d9484fae6848ffe
+      size: 4298
   setup:
     cmd: bash setup.sh
     deps:
     - path: requirements.txt
       hash: md5
-      md5: 1150e3462220fccb8831f993687f2f6c
-      size: 2271
+      md5: 7879f8f8d504fc5f1494df3ba23b96c7
+      size: 2275
+    - path: setup.sh
+      hash: md5
+      md5: 1881cad25780801542082d6721a35d2f
+      size: 374
