@@ -122,3 +122,23 @@ stages:
       hash: md5
       md5: 1881cad25780801542082d6721a35d2f
       size: 374
+  eval:
+    cmd: python eval.py
+    deps:
+    - path: canfy.csv
+      hash: md5
+      md5: f4d4c1221515fe413e7cdf383c1ab2db
+      size: 6467
+    - path: eval.py
+      hash: md5
+      md5: 9c2afc3fc90c9f2d71e1698a655b727f
+      size: 1193
+    - path: results.csv
+      hash: md5
+      md5: 70746233dc538f6c9d9484fae6848ffe
+      size: 4298
+    outs:
+    - path: eval.csv
+      hash: md5
+      md5: cbda9d23aaea4d3473d25e070b47314d
+      size: 722

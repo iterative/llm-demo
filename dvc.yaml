@@ -44,3 +44,11 @@ stages:
     - qa.py
     outs:
     - results.csv
+  eval:
+    cmd: python eval.py
+    deps:
+    - canfy.csv
+    - results.csv
+    - eval.py
+    outs:
+    - eval.csv
