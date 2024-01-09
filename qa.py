@@ -1,7 +1,8 @@
 """Ask a question to the notion database."""
-import faiss
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQAWithSourcesChain
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import FAISS
 import os
 import pickle
 import pandas as pd
@@ -9,21 +10,23 @@ import dvc.api
 
 
 params = dvc.api.params_show()
+emb_params = params['OpenAIEmbeddings']
 chat_params = params['ChatOpenAI']
 qa_params = params['Retrieval']
 print(chat_params)
 print(qa_params)
 
 # Load the LangChain.
-index = faiss.read_index("docs.index")
+emb = OpenAIEmbeddings(chunk_size=emb_params['chunk_size'],
+                       embedding_ctx_length=emb_params['embedding_ctx_length'],
+                       max_retries=emb_params['max_retries'],
+                       model=emb_params['model'])
 
-with open("faiss_store.pkl", "rb") as f:
-    store = pickle.load(f)
+store = FAISS.load_local("docs.index", emb)
 
 df = pd.read_csv("canfy.csv")
 sample_questions = df["Q"].to_list()
 
-store.index = index
 llm = ChatOpenAI(temperature=chat_params['temperature'], model_name=chat_params['model_name'], max_retries=chat_params['max_retries'], verbose=chat_params['verbose'])
 chain = RetrievalQAWithSourcesChain.from_chain_type(llm=llm,
                                                     retriever=store.as_retriever(), max_tokens_limit=qa_params['max_tokens_limit'],

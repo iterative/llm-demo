@@ -17,3 +17,5 @@ Retrieval:
   max_tokens_limit: 3375
   reduce_k_below_max_tokens: False
   verbose: True
+Eval:
+  model_name: gpt-3.5-turbo

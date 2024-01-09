@@ -31,21 +31,22 @@ stages:
     - vector_store.py
     outs:
     - docs.index
-    - faiss_store.pkl
   run:
     cmd: python qa.py
     params:
+    - OpenAIEmbeddings
     - ChatOpenAI
     - Retrieval
     deps:
     - docs.index
-    - faiss_store.pkl
     - canfy.csv
     - qa.py
     outs:
     - results.csv
   eval:
     cmd: python eval.py
+    params:
+    - Eval
     deps:
     - canfy.csv
     - results.csv

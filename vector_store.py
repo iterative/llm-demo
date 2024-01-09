@@ -25,7 +25,4 @@ emb.show_progress_bar = True
 
 # Here we create a vector store from the documents and save it to disk.
 store = FAISS.from_texts(docs, emb, metadatas=metadatas)
-faiss.write_index(store.index, "docs.index")
-store.index = None
-with open("faiss_store.pkl", "wb") as f:
-    pickle.dump(store, f)
+store.save_local("docs.index")

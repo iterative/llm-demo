@@ -2,6 +2,7 @@ from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from langchain.schema import HumanMessage
 import pandas as pd
+import dvc.api
 
 
 template = """
@@ -21,7 +22,8 @@ You are grading the following predicted answer:
 Respond with a number on the scale of 0 to 4.
 """
 
-llm = OpenAI()
+params = dvc.api.params_show()
+llm = OpenAI(**params["Eval"])
 
 truth = pd.read_csv("canfy.csv")
 predictions = pd.read_csv("results.csv")
