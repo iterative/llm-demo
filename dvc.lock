@@ -58,8 +58,8 @@ stages:
       size: 3975161
     - path: vector_store.py
       hash: md5
-      md5: 73df04619c4785d816ac11db2fef04b7
-      size: 912
+      md5: e9d697e5730d63d2a59d5e95aba1faba
+      size: 812
     params:
       params.yaml:
         OpenAIEmbeddings:
@@ -70,12 +70,9 @@ stages:
     outs:
     - path: docs.index
       hash: md5
-      md5: 7e80c58b44cfca1da3723d8eaf1acf3a
-      size: 323002413
-    - path: faiss_store.pkl
-      hash: md5
-      md5: 4d55dd6c1ca04114aadc71cbeff18845
-      size: 80319348
+      md5: 89a5959a0b9e6f01aaeb647571dfd208.dir
+      size: 403320831
+      nfiles: 2
   run:
     cmd: python qa.py
     deps:
@@ -85,16 +82,13 @@ stages:
       size: 6467
     - path: docs.index
       hash: md5
-      md5: 7e80c58b44cfca1da3723d8eaf1acf3a
-      size: 323002413
-    - path: faiss_store.pkl
-      hash: md5
-      md5: 4d55dd6c1ca04114aadc71cbeff18845
-      size: 80319348
+      md5: 89a5959a0b9e6f01aaeb647571dfd208.dir
+      size: 403320831
+      nfiles: 2
     - path: qa.py
       hash: md5
-      md5: 41b32609d253b1e8f2a2b556e21cc92b
-      size: 1590
+      md5: 9ce74dfc385e0f6e8c7becd5d1b5c0d8
+      size: 1877
     params:
       params.yaml:
         ChatOpenAI:
@@ -102,6 +96,11 @@ stages:
           model_name: gpt-3.5-turbo
           temperature: 0.0
           verbose: true
+        OpenAIEmbeddings:
+          chunk_size: 1000
+          embedding_ctx_length: 8191
+          max_retries: 6
+          model: text-embedding-ada-002
         Retrieval:
           max_tokens_limit: 3375
           reduce_k_below_max_tokens: false
@@ -109,8 +108,8 @@ stages:
     outs:
     - path: results.csv
       hash: md5
-      md5: 70746233dc538f6c9d9484fae6848ffe
-      size: 4298
+      md5: 10137997a6d89773c52d50461d423173
+      size: 4764
   setup:
     cmd: bash setup.sh
     deps:
@@ -131,14 +130,18 @@ stages:
       size: 6467
     - path: eval.py
       hash: md5
-      md5: 9c2afc3fc90c9f2d71e1698a655b727f
-      size: 1193
+      md5: 889ff5ed9d293e3885e5ba09b50d24b6
+      size: 1255
     - path: results.csv
       hash: md5
-      md5: 70746233dc538f6c9d9484fae6848ffe
-      size: 4298
+      md5: 10137997a6d89773c52d50461d423173
+      size: 4764
+    params:
+      params.yaml:
+        Eval:
+          model_name: gpt-3.5-turbo
     outs:
     - path: eval.csv
       hash: md5
-      md5: cbda9d23aaea4d3473d25e070b47314d
-      size: 722
+      md5: 43b960505d454f2c4594190ca1230f7b
+      size: 724
