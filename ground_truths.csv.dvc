@@ -1,0 +1,5 @@
+outs:
+- md5: f4d4c1221515fe413e7cdf383c1ab2db
+  size: 6467
+  hash: md5
+  path: ground_truths.csv

@@ -87,19 +87,19 @@ stages:
   run:
     cmd: python qa.py
     deps:
-    - path: canfy.csv
-      hash: md5
-      md5: f4d4c1221515fe413e7cdf383c1ab2db
-      size: 6467
     - path: docs.index
       hash: md5
       md5: 9ff8c7ea857419c29381c2de4dc78c88.dir
       size: 6747629
       nfiles: 2
+    - path: ground_truths.csv
+      hash: md5
+      md5: f4d4c1221515fe413e7cdf383c1ab2db
+      size: 6467
     - path: qa.py
       hash: md5
-      md5: 9ce74dfc385e0f6e8c7becd5d1b5c0d8
-      size: 1877
+      md5: 43c1a5f29d7f3c5a8e264570389581dd
+      size: 2059
     params:
       params.yaml:
         ChatOpenAI:
@@ -117,34 +117,30 @@ stages:
           reduce_k_below_max_tokens: false
           verbose: true
     outs:
-    - path: results.csv
+    - path: results.json
       hash: md5
-      md5: c80cc3cc6f224b94f4571f1da2721353
-      size: 5851
+      md5: 4eb830ea68f9587d6de3061765408a7f
+      size: 43355
   eval:
     cmd: python eval.py
     deps:
-    - path: canfy.csv
+    - path: eval.py
+      hash: md5
+      md5: 2128805d6284756e44b342be82dae985
+      size: 1040
+    - path: ground_truths.csv
       hash: md5
       md5: f4d4c1221515fe413e7cdf383c1ab2db
       size: 6467
-    - path: eval.py
+    - path: results.json
       hash: md5
-      md5: 889ff5ed9d293e3885e5ba09b50d24b6
-      size: 1255
-    - path: results.csv
-      hash: md5
-      md5: c80cc3cc6f224b94f4571f1da2721353
-      size: 5851
-    params:
-      params.yaml:
-        Eval:
-          model_name: gpt-3.5-turbo
+      md5: 4eb830ea68f9587d6de3061765408a7f
+      size: 43355
     outs:
     - path: eval.csv
       hash: md5
-      md5: 35cac70987c7ab8629fdc391995606f6
-      size: 724
+      md5: c5ab0d0ca92ec5ba7364e95c44016240
+      size: 46646
   eval-ragas:
     cmd: python eval_ragas.py
     deps:

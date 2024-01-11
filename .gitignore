@@ -140,3 +140,5 @@ dmypy.json
 /discord_dump.zip
 /eval.csv
 /eval_ragas.csv
+/ground_truths.csv
+/results.json

@@ -3,6 +3,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.chains import RetrievalQAWithSourcesChain
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
+import json
 import os
 import pickle
 import pandas as pd
@@ -23,27 +24,35 @@ emb = OpenAIEmbeddings(chunk_size=emb_params['chunk_size'],
                        model=emb_params['model'])
 
 store = FAISS.load_local("docs.index", emb)
+retriever = store.as_retriever()
 
-df = pd.read_csv("canfy.csv")
+df = pd.read_csv("ground_truths.csv")
 sample_questions = df["Q"].to_list()
 
 llm = ChatOpenAI(temperature=chat_params['temperature'], model_name=chat_params['model_name'], max_retries=chat_params['max_retries'], verbose=chat_params['verbose'])
 chain = RetrievalQAWithSourcesChain.from_chain_type(llm=llm,
-                                                    retriever=store.as_retriever(), max_tokens_limit=qa_params['max_tokens_limit'],
+                                                    retriever=retriever, max_tokens_limit=qa_params['max_tokens_limit'],
                                                     reduce_k_below_max_tokens=qa_params['reduce_k_below_max_tokens'],
                                                     verbose=qa_params['verbose'])
 
 records = []
 for question in sample_questions:
     question = question.strip()
+    context = retriever.get_relevant_documents(question)
+    context = [doc.page_content for doc in context]
     print(f"Question: {question}")
 
     result = chain({"question": question})
-    records.append({"Q": question, "A": result["answer"].strip(), "sources": result['sources'].strip()})
+    records.append({
+        "Q": question,
+        "A": result["answer"].strip(),
+        "sources": result['sources'].strip(),
+        "context": context,
+    })
 
     print(f"Answer: {result['answer']}")
     print(f"Sources: {result['sources']}")
     print("")
 
-df = pd.DataFrame.from_records(records)
-df.to_csv("results.csv", header=True, index=False)
+with open("results.json", "w") as f:
+    json.dump(records, f)

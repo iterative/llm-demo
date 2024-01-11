@@ -1,46 +1,45 @@
-from langchain.llms import OpenAI
-from langchain.prompts import PromptTemplate
-from langchain.schema import HumanMessage
+import json
 import pandas as pd
-import dvc.api
+from datasets import Dataset
+from ragas.metrics import (
+    answer_relevancy,
+    faithfulness,
+    context_recall,
+    context_precision,
+)
+from ragas import evaluate
 
 
-template = """
-You are an expert grading the correctness of answers to questions on a scale of 0 to 4.
-A score of 0 means that the answer is not factually correct. A score of 4 means that the
-answer is completely factually correct in all details.
+with open("results.json") as f:
+    results = json.load(f)
 
-You are grading the following question:
-{question}
+questions, answers, contexts = [], [], []
+for result in results:
+    questions.append(result['Q'])
+    answers.append(result['A'])
+    contexts.append(result['context'])
 
-Here is the real answer:
-{answer}
+truth = pd.read_csv("ground_truths.csv")
+ground_truths = truth['A'].to_list()
+# Convert to provide a list of ground_truths for each question.
+ground_truths = [[ground_truth] for ground_truth in ground_truths]
 
-You are grading the following predicted answer:
-{result}
+dataset = Dataset.from_dict({
+        "question": questions,
+        "answer": answers,
+        "contexts": contexts,
+        "ground_truths": ground_truths
+        })
 
-Respond with a number on the scale of 0 to 4.
-"""
+result = evaluate(
+    dataset,
+    metrics=[
+        context_precision,
+        faithfulness,
+        answer_relevancy,
+        context_recall,
+    ],
+)
 
-params = dvc.api.params_show()
-llm = OpenAI(**params["Eval"])
-
-truth = pd.read_csv("canfy.csv")
-predictions = pd.read_csv("results.csv")
-
-records = []
-for row in range(len(predictions)):
-    question = truth.loc[row]["Q"]
-    answer = truth.loc[row]["A"]
-    result = predictions.loc[row]["A"]
-
-    prompt = PromptTemplate.from_template(template)
-    text = prompt.format(question=question, answer=answer, result=result)
-    print(text)
-    print()
-    response = llm.invoke(text)
-    print(response)
-    records.append({"Q": question, "grade": response.strip()})
-
-df = pd.DataFrame.from_records(records)
+df = result.to_pandas()
 df.to_csv("eval.csv", header=True, index=False)

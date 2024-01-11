@@ -39,25 +39,15 @@ stages:
     - Retrieval
     deps:
     - docs.index
-    - canfy.csv
+    - ground_truths.csv
     - qa.py
     outs:
-    - results.csv
+    - results.json
   eval:
     cmd: python eval.py
-    params:
-    - Eval
     deps:
-    - canfy.csv
-    - results.csv
+    - ground_truths.csv
+    - results.json
     - eval.py
     outs:
     - eval.csv
-  eval-ragas:
-    cmd: python eval_ragas.py
-    deps:
-    - canfy.csv
-    - results.csv
-    - eval_ragas.py
-    outs:
-    - eval_ragas.csv
