@@ -1,5 +1,16 @@
 schema: '2.0'
 stages:
+  setup:
+    cmd: bash setup.sh
+    deps:
+    - path: requirements.txt
+      hash: md5
+      md5: d739f72a332fc5593577374969a06656
+      size: 2971
+    - path: setup.sh
+      hash: md5
+      md5: 1881cad25780801542082d6721a35d2f
+      size: 374
   expand:
     cmd: bash expand_data.sh
     deps:
@@ -27,8 +38,8 @@ stages:
       nfiles: 262
     - path: ingest.py
       hash: md5
-      md5: 58003d8f97a268e3c622897f18d8fc6b
-      size: 4691
+      md5: 0c4486eec273a8434776931027a4c8db
+      size: 1396
     params:
       params.yaml:
         TextSplitter:
@@ -39,23 +50,23 @@ stages:
     outs:
     - path: docs.json
       hash: md5
-      md5: f8778bd147329933c01eabe8b3253492
-      size: 73471050
+      md5: fde59b090e0373aaafe406ddabea697a
+      size: 1229954
     - path: metadatas.json
       hash: md5
-      md5: abcec91e4955e3519298bb815ce0dc7a
-      size: 3975161
+      md5: 53c7a3a2fa01225103e07c03b47ef9e1
+      size: 69964
   vectorize:
     cmd: python vector_store.py
     deps:
     - path: docs.json
       hash: md5
-      md5: f8778bd147329933c01eabe8b3253492
-      size: 73471050
+      md5: fde59b090e0373aaafe406ddabea697a
+      size: 1229954
     - path: metadatas.json
       hash: md5
-      md5: abcec91e4955e3519298bb815ce0dc7a
-      size: 3975161
+      md5: 53c7a3a2fa01225103e07c03b47ef9e1
+      size: 69964
     - path: vector_store.py
       hash: md5
       md5: e9d697e5730d63d2a59d5e95aba1faba
@@ -70,8 +81,8 @@ stages:
     outs:
     - path: docs.index
       hash: md5
-      md5: 89a5959a0b9e6f01aaeb647571dfd208.dir
-      size: 403320831
+      md5: 9ff8c7ea857419c29381c2de4dc78c88.dir
+      size: 6747629
       nfiles: 2
   run:
     cmd: python qa.py
@@ -82,8 +93,8 @@ stages:
       size: 6467
     - path: docs.index
       hash: md5
-      md5: 89a5959a0b9e6f01aaeb647571dfd208.dir
-      size: 403320831
+      md5: 9ff8c7ea857419c29381c2de4dc78c88.dir
+      size: 6747629
       nfiles: 2
     - path: qa.py
       hash: md5
@@ -108,19 +119,8 @@ stages:
     outs:
     - path: results.csv
       hash: md5
-      md5: 10137997a6d89773c52d50461d423173
-      size: 4764
-  setup:
-    cmd: bash setup.sh
-    deps:
-    - path: requirements.txt
-      hash: md5
-      md5: 7879f8f8d504fc5f1494df3ba23b96c7
-      size: 2275
-    - path: setup.sh
-      hash: md5
-      md5: 1881cad25780801542082d6721a35d2f
-      size: 374
+      md5: c80cc3cc6f224b94f4571f1da2721353
+      size: 5851
   eval:
     cmd: python eval.py
     deps:
@@ -134,8 +134,8 @@ stages:
       size: 1255
     - path: results.csv
       hash: md5
-      md5: 10137997a6d89773c52d50461d423173
-      size: 4764
+      md5: c80cc3cc6f224b94f4571f1da2721353
+      size: 5851
     params:
       params.yaml:
         Eval:
@@ -143,5 +143,25 @@ stages:
     outs:
     - path: eval.csv
       hash: md5
-      md5: 43b960505d454f2c4594190ca1230f7b
+      md5: 35cac70987c7ab8629fdc391995606f6
       size: 724
+  eval-ragas:
+    cmd: python eval_ragas.py
+    deps:
+    - path: canfy.csv
+      hash: md5
+      md5: f4d4c1221515fe413e7cdf383c1ab2db
+      size: 6467
+    - path: eval_ragas.py
+      hash: md5
+      md5: 7395c48d77477b43bb9b525f857a24d1
+      size: 1014
+    - path: results.csv
+      hash: md5
+      md5: c80cc3cc6f224b94f4571f1da2721353
+      size: 5851
+    outs:
+    - path: eval_ragas.csv
+      hash: md5
+      md5: 0e5e02f44e3a50c48942a71452d22296
+      size: 11105
