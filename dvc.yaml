@@ -53,3 +53,11 @@ stages:
     - eval.py
     outs:
     - eval.csv
+  eval-ragas:
+    cmd: python eval_ragas.py
+    deps:
+    - canfy.csv
+    - results.csv
+    - eval_ragas.py
+    outs:
+    - eval_ragas.csv
